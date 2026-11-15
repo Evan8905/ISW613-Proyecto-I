@@ -85,9 +85,9 @@ Agregue al final del archivo:
 <VirtualHost *:80>
     ServerName sigel.test
 
-    DocumentRoot "C:/RUTA/DEL/PROYECTO/ISW613-Proyecto-I"
+    DocumentRoot "C:/Users/marya/Documents/EVAN/UTN/ISW613-Proyecto-I/public"
 
-    <Directory "C:/RUTA/DEL/PROYECTO/ISW613-Proyecto-I">
+    <Directory "C:/Users/marya/Documents/EVAN/UTN/ISW613-Proyecto-I/public">
         Options FollowSymLinks
         AllowOverride All
         Require all granted
@@ -110,9 +110,9 @@ La configuración debe ser:
 <VirtualHost *:80>
     ServerName sigel.test
 
-    DocumentRoot "C:/Users/usuario/Documents/ISW613-Proyecto-I"
+    DocumentRoot "C:/Users/marya/Documents/EVAN/UTN/ISW613-Proyecto-I/public"
 
-    <Directory "C:/Users/usuario/Documents/ISW613-Proyecto-I">
+    <Directory "C:/Users/marya/Documents/EVAN/UTN/ISW613-Proyecto-I/public">
         Options FollowSymLinks
         AllowOverride All
         Require all granted
