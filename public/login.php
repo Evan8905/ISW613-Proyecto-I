@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,16 +8,14 @@
     <title>Iniciar sesión</title>
 
     <!-- Bootstrap 5.3.9 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
 
     <main class="container min-vh-100 d-flex align-items-center justify-content-center">
 
-        <div class="card shadow border-0 rounded-4 w-100"
-             style="max-width: 420px;">
+        <div class="card shadow border-0 rounded-4 w-100" style="max-width: 420px;">
             <div class="card-body p-4 p-md-5">
                 <!-- Encabezado -->
                 <div class="text-center mb-4">
@@ -34,59 +31,39 @@
                             Correo electrónico
                         </label>
 
-                        <input type="email"
-                               class="form-control"
-                               id="email"
-                               name="email"
-                               placeholder="nombre@ejemplo.com"
-                               autocomplete="email"
-                               required>
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="nombre@ejemplo.com" autocomplete="email" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">
                             Contraseña
                         </label>
-                        <input type="password"
-                               class="form-control"
-                               id="password"
-                               name="password"
-                               placeholder="Ingresa tu contraseña"
-                               autocomplete="current-password"
-                               required>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Ingresa tu contraseña" autocomplete="current-password" required>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex align-items-center mb-4">
                         <div class="form-check">
-                            <input type="checkbox"
-                                   class="form-check-input"
-                                   id="remember"
-                                   name="remember">
+                            <input type="checkbox" class="form-check-input" id="remember" name="remember">
 
                             <label class="form-check-label" for="remember">
                                 Recordarme
                             </label>
                         </div>
-                        <a href="recuperar.php"
-                           class="text-decoration-none small">
-                            ¿Olvidaste tu contraseña?
-                        </a>
+
                     </div>
 
-                    <button type="submit"
-                            class="btn btn-primary w-100 py-2">
+                    <button type="submit" class="btn btn-primary w-100 py-2">
                         Iniciar sesión
                     </button>
 
                 </form>
 
-
             </div>
         </div>
 
     </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
+
 </html>
