@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/session.php';
 require_once __DIR__ . '/../includes/csrf.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 $error = $_SESSION['login_error'] ?? null;
 unset($_SESSION['login_error']);
@@ -35,7 +36,7 @@ unset($_SESSION['login_error']);
 
                 <?php if ($error): ?>
                     <div class="alert alert-danger" role="alert">
-                        <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+                        <?= e($error) ?>
                     </div>
                 <?php endif; ?>
                 <?php if (($_GET['expired'] ?? '') === '1'): ?>
@@ -50,7 +51,7 @@ unset($_SESSION['login_error']);
                                     
                     <input type="hidden"
                         name="csrf_token"
-                        value="<?= htmlspecialchars(csrfToken(), ENT_QUOTES, 'UTF-8') ?>">
+                        value="<?= e(csrfToken()) ?>">
 
                     <div class="mb-3">
                         <label for="email" class="form-label">

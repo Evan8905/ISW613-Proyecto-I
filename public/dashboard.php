@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../includes/auth.php';
 
 // llama a la funcion para impedir el acceso sin iniciar sesión
@@ -22,11 +23,7 @@ require_once __DIR__ . '/../includes/header.php';
             </h2>
 
             <p class="text-muted mb-0">
-                Hola, <?= htmlspecialchars(
-                    $_SESSION['usuario_nombre'] ?? 'Usuario',
-                    ENT_QUOTES,
-                    'UTF-8'
-                ) ?>.
+                Hola,<?= e($_SESSION['usuario_nombre'] ?? 'Usuario') ?>.
             </p>
 
         </div>
