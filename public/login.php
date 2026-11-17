@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/session.php';
+require_once __DIR__ . '/../includes/csrf.php';
 
 $error = $_SESSION['login_error'] ?? null;
 unset($_SESSION['login_error']);
@@ -46,6 +47,11 @@ unset($_SESSION['login_error']);
                 
                 <!-- Formulario -->
                 <form action="actions/login_action.php" method="POST">
+                                    
+                    <input type="hidden"
+                        name="csrf_token"
+                        value="<?= htmlspecialchars(csrfToken(), ENT_QUOTES, 'UTF-8') ?>">
+
                     <div class="mb-3">
                         <label for="email" class="form-label">
                             Correo electrónico
@@ -79,6 +85,7 @@ unset($_SESSION['login_error']);
                     </button>
 
                 </form>
+
 
             </div>
         </div>

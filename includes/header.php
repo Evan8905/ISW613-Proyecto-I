@@ -1,16 +1,11 @@
 <?php
+
+require_once __DIR__ . '/csrf.php';
+
 $titulo = $titulo ?? 'SIGEL';
 $mostrarMenu = $mostrarMenu ?? true;
 
-if (
-    $mostrarMenu &&
-    !empty($_SESSION['usuario_id']) &&
-    empty($_SESSION['logout_csrf'])
-) {
-    $_SESSION['logout_csrf'] = bin2hex(random_bytes(32));
-}
 ?>
-
 
 
 <!DOCTYPE html>
@@ -55,8 +50,8 @@ if (
                         <form action="/actions/logout_action.php" method="POST" class="m-0">
 
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(
-                                $_SESSION['logout_csrf'],
-                                ENT_QUOTES,
+                                csrfToken(),
+                                ENT_QUOTES | ENT_SUBSTITUTE,
                                 'UTF-8'
                             ) ?>">
 
