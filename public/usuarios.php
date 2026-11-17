@@ -14,21 +14,51 @@ if ((int) ($_SESSION['rol_id'] ?? 0) !== 1) {
     exit('Acceso no autorizado.');
 }
 
-// Consultar usuarios y sus roles.
-$stmt = $dbh->prepare(
-    "SELECT
-        u.id,
-        u.nombre,
-        u.correo,
-        u.estado,
-        r.nombre AS rol
-     FROM usuarios u
-     INNER JOIN roles r ON u.rol_id = r.id
-     WHERE u.estado <> 2
-     ORDER BY u.id DESC"
-);
+// Obtener y validar el texto de búsqueda.
+$busqueda = $_GET['buscar'] ?? '';
 
-$stmt->execute();
+if (!is_string($busqueda)) {
+    http_response_code(400);
+    exit('Parámetro de búsqueda inválido.');
+}
+
+$busqueda = trim($busqueda);
+
+// Limitar el tamaño del texto recibido.
+if (strlen($busqueda) > 150) {
+    http_response_code(400);
+    exit('La búsqueda es demasiado larga.');
+}
+
+// Consultar usuarios y sus roles.
+$sql = "SELECT
+            u.id,
+            u.nombre,
+            u.correo,
+            u.estado,
+            r.nombre AS rol
+        FROM usuarios u
+        INNER JOIN roles r ON u.rol_id = r.id
+        WHERE u.estado <> 2";
+
+$parametros = [];
+
+// Aplicar búsqueda únicamente cuando se escribe un valor.
+if ($busqueda !== '') {
+
+    $sql .= " AND (
+        u.nombre LIKE :buscar_nombre
+        OR u.correo LIKE :buscar_correo
+    )";
+
+    $parametros[':buscar_nombre'] = '%' . $busqueda . '%';
+    $parametros[':buscar_correo'] = '%' . $busqueda . '%';
+}
+
+$sql .= " ORDER BY u.id DESC";
+
+$stmt = $dbh->prepare($sql);
+$stmt->execute($parametros);
 
 $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -55,6 +85,34 @@ require_once __DIR__ . '/../includes/header.php';
         <div class="card-body">
 
             <div class="table-responsive">
+                <form action="/usuarios.php" method="GET" class="mb-4">
+
+                    <div class="row g-2">
+
+                        <div class="col-md-9">
+
+                            <input type="search" name="buscar" class="form-control"
+                                placeholder="Buscar por nombre o correo electrónico" maxlength="150"
+                                value="<?= e($busqueda) ?>">
+
+                        </div>
+
+                        <div class="col-md-3 d-flex gap-2">
+
+                            <button type="submit" class="btn btn-primary flex-fill">
+                                Buscar
+                            </button>
+
+                            <a href="/usuarios.php" class="btn btn-outline-secondary">
+                                Limpiar
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
                 <?php if (!empty($_SESSION['usuario_exito'])): ?>
 
                     <div class="alert alert-success" role="alert">
@@ -74,7 +132,7 @@ require_once __DIR__ . '/../includes/header.php';
                     <?php unset($_SESSION['usuario_error']); ?>
 
                 <?php endif; ?>
-                
+
                 <table class="table table-hover align-middle">
 
                     <thead class="table-light">
@@ -94,7 +152,13 @@ require_once __DIR__ . '/../includes/header.php';
 
                             <tr>
                                 <td colspan="6" class="text-center text-muted py-4">
-                                    No hay usuarios registrados.
+
+                                    <?php if ($busqueda !== ''): ?>
+                                        No se encontraron usuarios con ese criterio de búsqueda.
+                                    <?php else: ?>
+                                        No hay usuarios registrados.
+                                    <?php endif; ?>
+
                                 </td>
                             </tr>
 
