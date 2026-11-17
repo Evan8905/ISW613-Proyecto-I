@@ -42,6 +42,10 @@ require_once __DIR__ . '/../includes/header.php';
 
     <div class="mb-4">
         <h2 class="fw-bold">Gestión de usuarios</h2>
+        <a href="/usuarios_crear.php" class="btn btn-primary">
+            Nuevo usuario
+        </a>
+
         <p class="text-muted">
             Listado de usuarios registrados en SIGEL.
         </p>
@@ -51,6 +55,15 @@ require_once __DIR__ . '/../includes/header.php';
         <div class="card-body">
 
             <div class="table-responsive">
+                <?php if (!empty($_SESSION['usuario_exito'])): ?>
+
+                    <div class="alert alert-success" role="alert">
+                        <?= e($_SESSION['usuario_exito']) ?>
+                    </div>
+
+                    <?php unset($_SESSION['usuario_exito']); ?>
+
+                <?php endif; ?>
                 <table class="table table-hover align-middle">
 
                     <thead class="table-light">
