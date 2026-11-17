@@ -64,6 +64,17 @@ require_once __DIR__ . '/../includes/header.php';
                     <?php unset($_SESSION['usuario_exito']); ?>
 
                 <?php endif; ?>
+
+                <?php if (!empty($_SESSION['usuario_error'])): ?>
+
+                    <div class="alert alert-danger" role="alert">
+                        <?= e($_SESSION['usuario_error']) ?>
+                    </div>
+
+                    <?php unset($_SESSION['usuario_error']); ?>
+
+                <?php endif; ?>
+                
                 <table class="table table-hover align-middle">
 
                     <thead class="table-light">
@@ -82,7 +93,7 @@ require_once __DIR__ . '/../includes/header.php';
                         <?php if (empty($usuarios)): ?>
 
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-4">
+                                <td colspan="6" class="text-center text-muted py-4">
                                     No hay usuarios registrados.
                                 </td>
                             </tr>
@@ -116,10 +127,31 @@ require_once __DIR__ . '/../includes/header.php';
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <a href="/usuarios_editar.php?id=<?= e((string) $usuario['id']) ?>"
-                                            class="btn btn-outline-primary btn-sm">
-                                            Editar
-                                        </a>
+                                        <div class="d-flex gap-2">
+
+                                            <a href="/usuarios_editar.php?id=<?= e((string) $usuario['id']) ?>"
+                                                class="btn btn-outline-primary btn-sm">
+                                                Editar
+                                            </a>
+
+                                            <?php if ((int) $usuario['id'] !== (int) $_SESSION['usuario_id']): ?>
+
+                                                <form action="/actions/usuario_eliminar.php" method="POST" class="m-0"
+                                                    onsubmit="return confirm('¿Está seguro de que desea eliminar este usuario?');">
+
+                                                    <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
+
+                                                    <input type="hidden" name="id" value="<?= e((string) $usuario['id']) ?>">
+
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                        Eliminar
+                                                    </button>
+
+                                                </form>
+
+                                            <?php endif; ?>
+
+                                        </div>
                                     </td>
                                 </tr>
 
