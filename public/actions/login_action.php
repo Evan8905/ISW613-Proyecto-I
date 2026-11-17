@@ -1,7 +1,6 @@
 <?php
 
-session_start();
-
+require_once __DIR__ . '/../../includes/session.php';
 require_once __DIR__ . '/../../config/database.php';
 
 // Verificar que la solicitud sea POST.
@@ -81,18 +80,24 @@ try {
         ':id' => $usuario['id']
     ]);
 
-    // Creación de sesión (se revisará en ISWP1-27).
-    session_regenerate_id(true);
+    if (!session_regenerate_id(true)) {
+        throw new RuntimeException('No se regeneró la sesión');
+    }
 
-    $_SESSION['usuario_id'] = $usuario['id'];
+    $_SESSION = [''];
+
+    // guarda información del usuario 
+    $_SESSION['usuario_id'] = (int) $usuario['id'];
     $_SESSION['usuario_nombre'] = $usuario['nombre'];
-    $_SESSION['rol_id'] = $usuario['rol_id'];
+    $_SESSION['rol_id'] = (int) $usuario['rol_id'];
+    $_SESSION['autenticado'] = true;
+
 
     // Acceso correcto.
     header('Location: ../dashboard.php');
     exit;
 
-} catch (PDOException $e) {
+} catch (Throwable $e) {
 
     // Registrar el error internamente, sin mostrar detalles de MySQL.
     error_log($e->getMessage());

@@ -1,8 +1,11 @@
 <?php
-session_start();
+require_once __DIR__ . '/../includes/session.php';
 
 // Impedir el acceso sin iniciar sesión
-if (!isset($_SESSION['usuario_id'])) {
+if (
+    !isset($_SESSION['usuario_id']) ||
+    ($_SESSION['autenticado'] ?? false) !== true
+) {
     header('Location: /login.php');
     exit;
 }
