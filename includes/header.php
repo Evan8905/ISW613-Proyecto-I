@@ -37,6 +37,7 @@ $mostrarMenu = $mostrarMenu ?? true;
                     </a>
 
                     <div class="d-flex gap-3">
+
                         <a class="nav-link" href="/dashboard.php">
                             Inicio
                         </a>
@@ -48,12 +49,12 @@ $mostrarMenu = $mostrarMenu ?? true;
                         <a class="nav-link" href="/prestamos.php">
                             Préstamos
                         </a>
+
                         <?php if ((int) ($_SESSION['rol_id'] ?? 0) === 1): ?>
+
                             <a class="nav-link" href="/categorias.php">
                                 Categorías
                             </a>
-                        <?php endif; ?>
-                        <?php if ((int) ($_SESSION['rol_id'] ?? 0) === 1): ?>
 
                             <a class="nav-link" href="/usuarios.php">
                                 Usuarios
@@ -70,6 +71,7 @@ $mostrarMenu = $mostrarMenu ?? true;
                             </button>
 
                         </form>
+
                     </div>
 
                 </div>
