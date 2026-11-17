@@ -32,3 +32,16 @@ VALUES
     (2,4),
     (2,5),
     (2,6);
+
+INSERT INTO categorias (nombre, dias_max_prestamo)
+VALUES
+    ('Computadoras portátiles', 7),
+    ('Computadoras de escritorio', 7),
+    ('Proyectores', 3),
+    ('Tabletas', 5),
+    ('Cámaras digitales', 3),
+    ('Equipos de audio', 3),
+    ('Equipos de redes', 5),
+    ('Instrumentos de medición', 2),
+    ('Accesorios de laboratorio', 7),
+    ('Equipos electrónicos', 5);
