@@ -1,14 +1,8 @@
 <?php
-require_once __DIR__ . '/../includes/session.php';
+require_once __DIR__ . '/../includes/auth.php';
 
-// Impedir el acceso sin iniciar sesión
-if (
-    !isset($_SESSION['usuario_id']) ||
-    ($_SESSION['autenticado'] ?? false) !== true
-) {
-    header('Location: /login.php');
-    exit;
-}
+// llama a la funcion para impedir el acceso sin iniciar sesión
+requireAuth();
 
 $titulo = 'Dashboard';
 $mostrarMenu = true;
