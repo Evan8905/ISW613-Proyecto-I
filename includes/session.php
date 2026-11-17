@@ -8,6 +8,7 @@ if (session_status()=== PHP_SESSION_NONE) {
     $https = !empty($_SERVER['HTTPS']) 
     && $_SERVER['HTTPS'] !== 'off';
     
+    // Se probó en el navegador, revisé la cookie para que cumpliera con los atributos seguros de cookie de sesión
     session_set_cookie_params([
         'lifetime' => 0,
         'path'=> '/',
