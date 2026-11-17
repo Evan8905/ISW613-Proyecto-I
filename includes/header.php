@@ -1,7 +1,17 @@
 <?php
 $titulo = $titulo ?? 'SIGEL';
 $mostrarMenu = $mostrarMenu ?? true;
+
+if (
+    $mostrarMenu &&
+    !empty($_SESSION['usuario_id']) &&
+    empty($_SESSION['logout_csrf'])
+) {
+    $_SESSION['logout_csrf'] = bin2hex(random_bytes(32));
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -13,9 +23,7 @@ $mostrarMenu = $mostrarMenu ?? true;
     <title><?= htmlspecialchars($titulo, ENT_QUOTES, 'UTF-8') ?> | SIGEL</title>
 
     <!-- Bootstrap 5.3.9 -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- CSS personalizado -->
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -44,6 +52,19 @@ $mostrarMenu = $mostrarMenu ?? true;
                         <a class="nav-link" href="/prestamos.php">
                             Préstamos
                         </a>
+                        <form action="/actions/logout_action.php" method="POST" class="m-0">
+
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(
+                                $_SESSION['logout_csrf'],
+                                ENT_QUOTES,
+                                'UTF-8'
+                            ) ?>">
+
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                Cerrar sesión
+                            </button>
+
+                        </form>
                     </div>
 
                 </div>
