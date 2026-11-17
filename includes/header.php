@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/csrf.php';
+require_once __DIR__ . '/functions.php';
 
 $titulo = $titulo ?? 'SIGEL';
 $mostrarMenu = $mostrarMenu ?? true;
@@ -15,7 +16,7 @@ $mostrarMenu = $mostrarMenu ?? true;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title><?= htmlspecialchars($titulo, ENT_QUOTES, 'UTF-8') ?> | SIGEL</title>
+    <title><?= e($titulo) ?> | SIGEL</title>
 
     <!-- Bootstrap 5.3.9 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -49,11 +50,7 @@ $mostrarMenu = $mostrarMenu ?? true;
                         </a>
                         <form action="/actions/logout_action.php" method="POST" class="m-0">
 
-                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(
-                                csrfToken(),
-                                ENT_QUOTES | ENT_SUBSTITUTE,
-                                'UTF-8'
-                            ) ?>">
+                            <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
 
                             <button type="submit" class="btn btn-outline-danger btn-sm">
                                 Cerrar sesión
