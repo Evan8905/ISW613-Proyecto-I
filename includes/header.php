@@ -49,12 +49,18 @@ $mostrarMenu = $mostrarMenu ?? true;
                             Préstamos
                         </a>
                         <?php if ((int) ($_SESSION['rol_id'] ?? 0) === 1): ?>
+                            <a class="nav-link" href="/categorias.php">
+                                Categorías
+                            </a>
+                        <?php endif; ?>
+                        <?php if ((int) ($_SESSION['rol_id'] ?? 0) === 1): ?>
 
                             <a class="nav-link" href="/usuarios.php">
                                 Usuarios
                             </a>
 
                         <?php endif; ?>
+
                         <form action="/actions/logout_action.php" method="POST" class="m-0">
 
                             <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
