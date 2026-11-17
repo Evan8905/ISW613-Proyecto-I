@@ -73,6 +73,7 @@ require_once __DIR__ . '/../includes/header.php';
                             <th>Correo electrónico</th>
                             <th>Rol</th>
                             <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
 
@@ -113,6 +114,12 @@ require_once __DIR__ . '/../includes/header.php';
                                             </span>
 
                                         <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="/usuarios_editar.php?id=<?= e((string) $usuario['id']) ?>"
+                                            class="btn btn-outline-primary btn-sm">
+                                            Editar
+                                        </a>
                                     </td>
                                 </tr>
 
