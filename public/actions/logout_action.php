@@ -14,8 +14,9 @@ $tokenGuardado = $_SESSION['logout_csrf'] ?? '';
 
 if (
     !is_string($tokenRecibido) ||
+    !is_string($tokenGuardado) ||
     $tokenGuardado === '' ||
-    !hash_equals($token_guardado, $tokenRecibido)
+    !hash_equals($tokenGuardado, $tokenRecibido)
 ) {
     http_response_code(403);
     exit('Solicitud no autorizada');
@@ -32,7 +33,7 @@ if (ini_get('session.use_cookies')) {
     $params = session_get_cookie_params();
 
     setcookie(session_name(), '', [
-        'expire' => $time() - 3600,
+        'expires' => time() - 3600,
         'path' => $params['path'],
         'domain' => $params['domain'],
         'secure' => $params['secure'],
