@@ -45,3 +45,7 @@ VALUES
     ('Instrumentos de medición', 2),
     ('Accesorios de laboratorio', 7),
     ('Equipos electrónicos', 5);
+
+INSERT INTO configuracion (id, anticipacion_min_horas)
+VALUES (1, 2)
+ON DUPLICATE KEY UPDATE id = id;
