@@ -1,8 +1,10 @@
 <?php
 
 require_once __DIR__ . '/session.php';
-const TIEMPO_INACTIVIDAD = 300; // 5 minutos 
-//const TIEMPO_INACTIVIDAD = 10; // 10 Segundos solo para pruebas 
+//const TIEMPO_INACTIVIDAD = 300; // 5 minutos 
+//const TIEMPO_INACTIVIDAD = 10; // 10 Segundos solo para pruebas
+const TIEMPO_INACTIVIDAD = 900; // 15 minutos solo para pruebas
+
  //Verifica que el usuario tenga una sesión autenticada.
 function requireAuth(): void
 {
