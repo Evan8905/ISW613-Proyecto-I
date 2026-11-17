@@ -84,13 +84,14 @@ try {
         throw new RuntimeException('No se regeneró la sesión');
     }
 
-    $_SESSION = [''];
+    $_SESSION = [];
 
     // guarda información del usuario 
     $_SESSION['usuario_id'] = (int) $usuario['id'];
     $_SESSION['usuario_nombre'] = $usuario['nombre'];
     $_SESSION['rol_id'] = (int) $usuario['rol_id'];
     $_SESSION['autenticado'] = true;
+    $_SESSION['ultimo_acceso'] = time();
 
 
     // Acceso correcto.

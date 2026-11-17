@@ -37,6 +37,12 @@ unset($_SESSION['login_error']);
                         <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
                     </div>
                 <?php endif; ?>
+                <?php if (($_GET['expired'] ?? '') === '1'): ?>
+                    <div class="alert alert-warning" role="alert">
+                        Tu sesión ha expirado por inactividad.
+                        Inicia sesión nuevamente.
+                    </div>
+                <?php endif; ?>
                 
                 <!-- Formulario -->
                 <form action="actions/login_action.php" method="POST">
