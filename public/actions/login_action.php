@@ -1,12 +1,19 @@
 <?php
 
-require_once __DIR__ . '/../../includes/session.php';
+require_once __DIR__ . '/../../includes/csrf.php';
 require_once __DIR__ . '/../../config/database.php';
 
 // Verificar que la solicitud sea POST.
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../login.php');
     exit;
+}
+
+$tokenRecibido = $_POST['csrf_token'] ?? null;
+
+if (!is_string($tokenRecibido) || !validarCsrf($tokenRecibido)) {
+    http_response_code(403);
+    exit('Solicitud no autorizada.');
 }
 
 // Obtener credenciales del formulario.

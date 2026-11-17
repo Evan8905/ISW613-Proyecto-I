@@ -1,25 +1,17 @@
 <?php
 
-require_once __DIR__ . '/../../includes/session.php';
+require_once __DIR__ . '/../../includes/csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('location: /dashboard.php');
     exit;
 }
 
-//validación de token
+$tokenRecibido = $_POST['csrf_token'] ?? null;
 
-$tokenRecibido = $_POST['csrf_token'] ?? '';
-$tokenGuardado = $_SESSION['logout_csrf'] ?? '';
-
-if (
-    !is_string($tokenRecibido) ||
-    !is_string($tokenGuardado) ||
-    $tokenGuardado === '' ||
-    !hash_equals($tokenGuardado, $tokenRecibido)
-) {
+if (!is_string($tokenRecibido) || !validarCsrf($tokenRecibido)) {
     http_response_code(403);
-    exit('Solicitud no autorizada');
+    exit('Solicitud no autorizada.');
 }
 
 //limpiar la variables de la sesión
